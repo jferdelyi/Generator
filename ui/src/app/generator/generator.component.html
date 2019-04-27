@@ -1,0 +1,35 @@
+<head>
+  <meta content="text/html;charset=UTF-8" charset="utf-8">
+  <title>G&eacute;n&eacute;rateur de nom de villes fran&ccedil;aise</title>
+</head>
+
+<body>
+  <div id="back">
+    <div id="background"></div>
+
+    <div id="display">
+      <span id="display_beg"></span>
+      <div *ngFor="let word of generateWordsGet">{{word}}</div>
+    </div>
+
+    <div>
+      <div class="clr-row">
+        <div class="clr-col-3">
+          <button id="generate" class="button" (click)="generate()">Generate</button>
+        </div>
+
+        <div class="clr-col-3">
+          <label>nGram</label>
+        </div>
+
+        <div class="clr-col-3">
+          <input #ngram class="input" type="number" min="1" max="100" step="1" value="{{getNGram}}" />
+        </div>
+
+        <div class="clr-col-3">
+          <button id="ngrambutton" class="button" (click)="nGramUpdate(ngram.value)">Change nGram</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
