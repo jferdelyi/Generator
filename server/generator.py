@@ -13,7 +13,7 @@ if not hasParam:
     exit(1)
 
 if "-g" in sys.argv:
-    i = sys.argv.index("-g")
+    i = sys.argv.index("-ngram")
     if len(sys.argv) > i + 1:
         ngram = int(sys.argv[i + 1])
         print("Set ngram: " + str(ngram))
@@ -22,7 +22,7 @@ if "-g" in sys.argv:
         exit(1)
 
 if "-n" in sys.argv:
-    i = sys.argv.index("-n")
+    i = sys.argv.index("-load")
     if len(sys.argv) > i + 1:
         database = sys.argv[i + 1]
         print("Set database: " + database)
