@@ -20,7 +20,7 @@ export class GeneratorComponent implements OnInit {
    * Init
    */
   public ngOnInit(): void {
-    this.getNGram();
+    this.nGramGet();
   }
 
   /**
@@ -53,9 +53,16 @@ export class GeneratorComponent implements OnInit {
   }
 
   /**
+   * Get connection status
+   */
+  public getStatus(): boolean {
+    return this.generatorService.getStatus;
+  }
+
+  /**
    * Get words data from generator service
    */
-  public get generateWordsGet(): string[] {
-    return this.generatorService.getGenerateWords;
+  public get getOutput(): string[] {
+    return this.generatorService.getOutput;
   }
 }

@@ -11,25 +11,43 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class GeneratorService {
-
+  // Generator URL
   private generatorUrl = 'http://127.0.0.1:5000/generate';
+
+  // N-GRAM URL
   private nGramUrl = 'http://127.0.0.1:5000/ngram';
 
+  // N-GRAM
   private nGram: number;
-  private generateWords: string[];
 
+  // Status of the connection
+  private status: boolean = true;
+
+  // Generated words
+  private output: string[];
+
+  /**
+   * Generator service
+   * @param http HTTP service
+   */
   constructor(private http: HttpClient) {
-    this.generateWords = new Array();
+    this.output = new Array();
   }
 
+  /**
+   * Generate a new word
+   */
   public generate(): void {
     this.http.get<string>(this.generatorUrl).pipe(
       catchError(this.handleError<string>('generate'))).subscribe(newWord => {
         // Set the scroll to the end
-        this.generateWords.push(newWord);
+        this.output.push(newWord);
       });
   }
 
+  /**
+   * Get N-GRAM
+   */
   public nGramGet(): void {
     this.http.get<number>(this.nGramUrl).pipe(
       catchError(this.handleError<number>('getNGram'))).subscribe(newNGram => {
@@ -37,19 +55,41 @@ export class GeneratorService {
       });
   }
 
+  /**
+   * Update N-GRAM, this function can be take long time
+   * @param nGram new N-GRAM
+   */
   public nGramUpdate(nGram: number): void {
+    this.status = false;
+    this.output.push("# Waiting for reconfiguration...")
     this.http.put(this.nGramUrl, nGram, httpOptions).pipe(
-      catchError(this.handleError<any>('putNGram'))).subscribe();
+      catchError(this.handleError<any>('putNGram'))).subscribe(_ => {
+        this.output[this.output.length -1] += "done"
+        this.status = true;
+      });
   }
 
+  /**
+   * Get N-GRAM
+   */
   public get getNGram(): number {
     return this.nGram;
   }
 
-  public get getGenerateWords(): string[] {
+  /**
+   * Get connection status
+   */
+  public get getStatus(): boolean {
+    return this.status;
+  }
+
+  /**
+   * Get generated words
+   */
+  public get getOutput(): string[] {
     const display = document.getElementById('display');
     display.scrollTop = display.scrollHeight;
-    return this.generateWords;
+    return this.output;
   }
 
   /**

@@ -45,6 +45,10 @@
   overflow-y: scroll;
 }
 
+div[class^="#"], div[class*="#"] {
+  color:red 
+}
+
 .input {
   height: 30px;
   width: 100px;
@@ -62,4 +66,24 @@
 
 .button:hover {
   background-color: #63a6f2;
+}
+
+.button:disabled,
+.button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.control {
+  width: 700px;
+  position: relative;
+  left: 50px;
+  top: 15px;
+}
+
+.label-ngram {
+  position: relative;
+  left: 50px;
+  top: 5px;
 }

@@ -3,7 +3,9 @@ import random
 # Make a random choice with weighted values
 # input: {"key1": 1, "key2": 4, "key3": 2}
 # output: (example) "key 1"
-def weightedChoice(values):    
+
+
+def weightedChoice(values):
     total = sum(w for c, w in values.items())
     r = random.uniform(0, total)
     upto = 0

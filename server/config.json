@@ -1,0 +1,10 @@
+{
+	options: {
+		path: "data",
+		bases: {
+			base: [ 
+				{name: "ville",	ngram: "4"}
+			]
+		}
+	}
+}

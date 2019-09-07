@@ -9,25 +9,25 @@
 
     <div id="display">
       <span id="display_beg"></span>
-      <div *ngFor="let word of generateWordsGet">{{word}}</div>
+      <div class="{{word}}" *ngFor="let word of getOutput">{{word}}</div>
     </div>
 
-    <div>
+    <div class="control">
       <div class="clr-row">
-        <div class="clr-col-3">
-          <button id="generate" class="button" (click)="generate()">Generate</button>
+        <div class="clr-col-6">
+          <button id="generate" class="button" (click)="generate()" [disabled] = "!getStatus()">Generate</button>
         </div>
 
-        <div class="clr-col-3">
-          <label>nGram</label>
+        <div class="clr-col-2">
+          <label class="label-ngram"><b>N-GRAM</b></label>
         </div>
 
-        <div class="clr-col-3">
-          <input #ngram class="input" type="number" min="1" max="100" step="1" value="{{getNGram}}" />
+        <div class="clr-col-2">
+          <input #ngram class="input" type="number" min="3" max="40" step="1" value="{{getNGram()}}" />
         </div>
 
-        <div class="clr-col-3">
-          <button id="ngrambutton" class="button" (click)="nGramUpdate(ngram.value)">Change nGram</button>
+        <div class="clr-col-2">
+          <button id="ngrambutton" class="button" (click)="nGramUpdate(ngram.value)" [disabled] = "!getStatus()">Set</button>
         </div>
       </div>
     </div>

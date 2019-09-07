@@ -7,11 +7,12 @@ import sys
 import time
 import json
 
-from classes.SingletonNameGen import SingletonNameGen
+from classes.SingletonNameGenerator import SingletonNameGenerator
 
 # Params
-ngram = 4
-database = "ville.out"
+defaultDatabase = "ville"
+ngram = 0
+database = ""
 
 random.seed()
 hasParam = len(sys.argv) > 0
@@ -33,16 +34,17 @@ if hasParam and "-load" in sys.argv:
     i = sys.argv.index("-load")
     if len(sys.argv) > i+1:
         # Load namegenerator data
-        fn = sys.argv[i+1]
-        print("Loading: " + fn)
-        SingletonNameGen.initFromNgram(fn)
+        database = sys.argv[i+1]
+        print("Loading: " + database)
+        ngram = SingletonNameGenerator.initFromFile(database, ngram)
     else:
         print("Error, need filename to load")
         exit(1)
 else:
     # No params, learn from default database
-    print("Learning.")
-    SingletonNameGen.initFromDatabase(ngram, database)
+    print("Loading default database")
+    database = defaultDatabase
+    ngram = SingletonNameGenerator.initFromFile(database, ngram)
 
 t1 = time.time()
 
@@ -54,7 +56,7 @@ if hasParam and "-gen" in sys.argv:
         print("-------------")
         nGen = int(sys.argv[i+1])
         for i in range(nGen):
-            print(SingletonNameGen.gen())
+            print(SingletonNameGenerator.gen())
         print("-------------")
     else:
         print("Warning, need parameter to generate names")
@@ -64,7 +66,7 @@ if hasParam and "-save" in sys.argv:
     i = sys.argv.index("-save")
     if len(sys.argv) > i+1:
         fn = sys.argv[i+1]
-        SingletonNameGen.nameGenerator.saveToFile(fn)
+        SingletonNameGenerator.nameGenerator.saveToFile(fn)
     else:
         print("Warning, need filename to save, learning not saved")
 
@@ -75,7 +77,7 @@ CORS(app)
 @app.route("/generate", methods=['GET'])
 def generate():
     if request.method == 'GET':
-        resp = jsonify(SingletonNameGen.gen())
+        resp = jsonify(SingletonNameGenerator.gen())
         resp.status_code = 200
 
     return resp
@@ -84,14 +86,17 @@ def generate():
 @app.route("/ngram", methods=['GET', 'PUT'])
 def nGram():
     global ngram
+    global database
 
     if request.method == 'GET':
         resp = jsonify(ngram)
         resp.status_code = 200
 
     elif request.method == 'PUT':
-        ngram = json.dumps(request.json)
+        ngram = int(json.dumps(request.json))
+        print("Reload database")
+        SingletonNameGenerator.reload(database, ngram)
         resp = jsonify("")
         resp.status_code = 204
-    
+
     return resp

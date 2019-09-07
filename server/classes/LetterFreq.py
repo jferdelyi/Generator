@@ -15,6 +15,9 @@ class LetterFreq:
         self.valueMap = {}
         self.freqMap = {}
 
+    def setNgram(self, ngram):
+        self.ngram = ngram
+
     # Count ngrams
     def addToCount(self, word):
         if self.ngram != 1:
