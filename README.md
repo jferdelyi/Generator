@@ -1,12 +1,8 @@
 French city name generator
 
 How to use it:
-    run 'python server.py'
-    options:
-		* -ngram <number> Set ngram for learning (default value is 4 ngram)
-        * -save <filname> Saves the learning in JSON files
-        * -load <filname> Load learning data from json
-        * -gen <count> Generates count names and output in stdin, only if -noweb is specified
+* run 'python server.py' for server side only (REST server)
+* run 'python client.py' for client side only (Web App)
+* run 'python start.py' for client and server side
 
-    Just serving
-    run 'FLASK_APP=server.py flask run'
+And go to 127.0.0.1:4200, enjoy.
