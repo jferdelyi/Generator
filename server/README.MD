@@ -1,8 +1,3 @@
-Server script (server.py) options:
-* -ngram <number> set ngram for serving 
-* -load <filname> load learning data from json
-Default value use the database 'ville'
-  
 Generator script (generator.py) is used to create a new database from a list of words, options:
 * -ngram <number> set ngram for learning
 * -load <filname> load learning data from json
