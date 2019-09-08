@@ -1,3 +1,4 @@
+import os
 import json
 
 from .tools import weightedChoice
@@ -93,9 +94,11 @@ class LetterFreq:
 
     # Load Frequency data to json file
     def loadFromFile(self, fn):
-        jsonMap = {}
-        with open(fn, "r") as file:
-            jsonMap = json.load(file)
+        if os.path.isfile(fn):
+            with open(fn, "r") as file:
+                jsonMap = json.load(file)
+        else:
+            raise Exception("Loading frequence: file not found")
 
         self.ngram = jsonMap["ngram"]
         self.ngramCount = jsonMap["ngramCount"]

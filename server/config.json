@@ -1,10 +1,8 @@
 {
-	options: {
-		path: "data",
-		bases: {
-			base: [ 
-				{name: "ville",	ngram: "4"}
-			]
+	"options": {
+		"base": {
+			"name": "pomme",
+			"ngram": 13
 		}
 	}
 }

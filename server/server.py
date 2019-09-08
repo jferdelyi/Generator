@@ -2,100 +2,66 @@
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-import random
 import sys
+import os
+import random
 import time
 import json
 
 from classes.SingletonNameGenerator import SingletonNameGenerator
 
-# Params
-defaultDatabase = "ville"
-ngram = 0
-database = ""
-
+# Configuration
 random.seed()
-hasParam = len(sys.argv) > 0
-
-if hasParam and "-ngram" in sys.argv:
-    i = sys.argv.index("-ngram")
-    if len(sys.argv) > i+1:
-        # Load namegenerator data
-        n = int(sys.argv[i+1])
-        print("Set ngram: " + str(n))
-        ngram = n
-    else:
-        print("Error, need number of ngram")
-        exit(1)
-
-t0 = time.time()
-# Load learning from file
-if hasParam and "-load" in sys.argv:
-    i = sys.argv.index("-load")
-    if len(sys.argv) > i+1:
-        # Load namegenerator data
-        database = sys.argv[i+1]
-        print("Loading: " + database)
-        ngram = SingletonNameGenerator.initFromFile(database, ngram)
-    else:
-        print("Error, need filename to load")
-        exit(1)
+if os.path.isfile('config.json'):
+    with open('config.json') as iFile:
+        data = json.load(iFile)
+        database = data["options"]["base"]["name"]
+        ngram = data["options"]["base"]["ngram"]
 else:
-    # No params, learn from default database
-    print("Loading default database")
-    database = defaultDatabase
-    ngram = SingletonNameGenerator.initFromFile(database, ngram)
+    raise "Initialization: Configuration file not found"
 
-t1 = time.time()
+# Load database
+print("Set database: " + database)
+print("Set N-GRAM: " + str(ngram))
+t0 = time.time()
+print("Load learning...")
+SingletonNameGenerator.init(database, ngram)
+print("Done in {0}s.".format(round(time.time() - t0, 3)))
 
-print("Done in {0}s.".format(round(t1-t0, 3)))
-
-if hasParam and "-gen" in sys.argv:
-    i = sys.argv.index("-gen")
-    if len(sys.argv) > i+1:
-        print("-------------")
-        nGen = int(sys.argv[i+1])
-        for i in range(nGen):
-            print(SingletonNameGenerator.gen())
-        print("-------------")
-    else:
-        print("Warning, need parameter to generate names")
-
-# Save to file after
-if hasParam and "-save" in sys.argv:
-    i = sys.argv.index("-save")
-    if len(sys.argv) > i+1:
-        fn = sys.argv[i+1]
-        SingletonNameGenerator.nameGenerator.saveToFile(fn)
-    else:
-        print("Warning, need filename to save, learning not saved")
-
+# Init server
 app = Flask(__name__)
 CORS(app)
 
 
-@app.route("/generate", methods=['GET'])
-def generate():
+@app.route("/v1/generate", methods=['GET'])
+# Generate new word
+def api_v1_generate():
+    # If request is GET
     if request.method == 'GET':
-        resp = jsonify(SingletonNameGenerator.gen())
+        # Get new word
+        resp = jsonify(SingletonNameGenerator.generate())
+        # OK
         resp.status_code = 200
 
     return resp
 
 
-@app.route("/ngram", methods=['GET', 'PUT'])
-def nGram():
-    global ngram
-    global database
-
+@app.route("/v1/ngram", methods=['GET', 'PUT'])
+# Get or update N-GRAM
+def api_v1_ngram():
+    # If request is GET
     if request.method == 'GET':
-        resp = jsonify(ngram)
+        # Return selected N-GRAM
+        resp = jsonify(SingletonNameGenerator.getSelectedNgram())
+        # OK
         resp.status_code = 200
 
+    # If request is PUT
     elif request.method == 'PUT':
+        # Get new N-GRAM
         ngram = int(json.dumps(request.json))
-        print("Reload database")
-        SingletonNameGenerator.reload(database, ngram)
+        SingletonNameGenerator.reload(ngram)
+        # OK but no content
         resp = jsonify("")
         resp.status_code = 204
 

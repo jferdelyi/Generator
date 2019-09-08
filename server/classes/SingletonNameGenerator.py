@@ -8,21 +8,19 @@ class SingletonNameGenerator:
 
     # Init singleton
     @staticmethod
-    def init(database, ngram):
-        SingletonNameGenerator.generator = NameGenerator(ngram)
-        SingletonNameGenerator.generator.createDatabase(database)
+    def init(database, selectedNgram):
+        SingletonNameGenerator.generator = NameGenerator(database, selectedNgram)
+        SingletonNameGenerator.generator.init()
 
     @staticmethod
-    def initFromFile(database, ngram=-1):
-        SingletonNameGenerator.generator = NameGenerator(ngram)
-        return SingletonNameGenerator.generator.loadFromFile(database)
-
-    @staticmethod
-    def reload(database, ngram):
-        SingletonNameGenerator.generator.reload(database, ngram)
+    def reload(selectedNgram):
+        SingletonNameGenerator.generator.reload(selectedNgram)
 
     # Call generates method
     @staticmethod
-    def gen():
-        s = SingletonNameGenerator.generator.generate()[1:-1]
-        return s
+    def generate():
+        return SingletonNameGenerator.generator.generate()[1:-1]
+    
+    @staticmethod
+    def getSelectedNgram():
+        return SingletonNameGenerator.generator.getSelectedNgram()
