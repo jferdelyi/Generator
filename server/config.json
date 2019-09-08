@@ -1,8 +1,8 @@
 {
 	"options": {
 		"base": {
-			"name": "pomme",
-			"ngram": 13
+			"name": "ville",
+			"ngram": 10
 		}
 	}
 }
