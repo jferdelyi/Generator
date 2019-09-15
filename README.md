@@ -1,4 +1,4 @@
-<h2>French city name generator</h2>
+<h2>Markov generator</h2>
 
 <h3>General</h3>
 
