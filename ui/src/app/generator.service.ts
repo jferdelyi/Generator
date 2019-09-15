@@ -23,15 +23,16 @@ export class GeneratorService {
   // Status of the connection
   private status: boolean = true;
 
-  // Generated words
-  private output: string[];
+  // Generated words [class, value]
+  private output: Array<[string, string]>;
 
   /**
    * Generator service
    * @param http HTTP service
    */
   constructor(private http: HttpClient) {
-    this.output = new Array();
+    this.output = new Array<[string, string]>();
+    this.output.push(["command", "serve server.py"]);
   }
 
   /**
@@ -41,7 +42,7 @@ export class GeneratorService {
     this.http.get<string>(this.generatorUrl).pipe(
       catchError(this.handleError<string>('generate'))).subscribe(newWord => {
         // Set the scroll to the end
-        this.output.push(newWord);
+        this.output.push(["result", newWord]);
       });
   }
 
@@ -61,10 +62,11 @@ export class GeneratorService {
    */
   public nGramUpdate(nGram: number): void {
     this.status = false;
-    this.output.push("# Waiting for reconfiguration...")
+    this.output.push(["command", "run generator.py -ngram " + nGram + " -load database"]);
+    this.output.push(["message", "Waiting for reconfiguration..."]);
     this.http.put(this.nGramUrl, nGram, httpOptions).pipe(
       catchError(this.handleError<any>('putNGram'))).subscribe(_ => {
-        this.output[this.output.length -1] += "done"
+        this.output[this.output.length -1][1] += "done"
         this.status = true;
       });
   }
@@ -86,17 +88,17 @@ export class GeneratorService {
   /**
    * Get generated words
    */
-  public get getOutput(): string[] {
+  public get getOutput(): Array<[string, string]> {
     const display = document.getElementById('display');
     display.scrollTop = display.scrollHeight;
     return this.output;
   }
 
   /**
-   * Handle Http operation that failed.
+   * Handle http operation that failed.
    * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
+   * @param operation name of the operation that failed
+   * @param result optional value to return as the observable result
    */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

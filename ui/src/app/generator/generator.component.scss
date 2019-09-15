@@ -26,12 +26,6 @@
   background-color: #e6e6e6;
 }
 
-#display_beg:after {
-  color: #00ff00;
-  content: "run generate.sh";
-  display: block;
-}
-
 #display {
   color: white;
   font-family: ubuntu_mono;
@@ -45,8 +39,12 @@
   overflow-y: scroll;
 }
 
-div[class^="#"], div[class*="#"] {
+.message {
   color:red 
+}
+
+.command {
+  color: #00ff00;
 }
 
 .input {

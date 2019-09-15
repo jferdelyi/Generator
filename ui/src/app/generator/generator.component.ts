@@ -62,7 +62,7 @@ export class GeneratorComponent implements OnInit {
   /**
    * Get words data from generator service
    */
-  public get getOutput(): string[] {
+  public get getOutput(): Array<[string, string]> {
     return this.generatorService.getOutput;
   }
 }

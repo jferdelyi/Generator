@@ -2,7 +2,7 @@
 	"options": {
 		"base": {
 			"name": "ville",
-			"ngram": 10
+			"ngram": 6
 		}
 	}
 }
