@@ -19,3 +19,7 @@ See the readme in server folder if you want to change the database
 * Angular >= 7.3.8 `npm install -g @angular/cli`
 * Flask `pip install flask`
 * Flask CORS `pip install flask-cors`
+
+<h3>Installation</h3>
+
+In ui folder `npm install` 
