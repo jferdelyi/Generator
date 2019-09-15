@@ -14,10 +14,10 @@ export class GeneratorService {
   // Generator URL
   private generatorUrl = 'http://127.0.0.1:5000/v1/generate';
 
-  // N-GRAM URL
+  // n-gram URL
   private nGramUrl = 'http://127.0.0.1:5000/v1/ngram';
 
-  // N-GRAM
+  // n-gram
   private nGram: number;
 
   // Status of the connection
@@ -47,7 +47,7 @@ export class GeneratorService {
   }
 
   /**
-   * Get N-GRAM
+   * Get n-gram
    */
   public nGramGet(): void {
     this.http.get<number>(this.nGramUrl).pipe(
@@ -57,8 +57,8 @@ export class GeneratorService {
   }
 
   /**
-   * Update N-GRAM, this function can be take long time
-   * @param nGram new N-GRAM
+   * Update n-gram, this function can be take long time
+   * @param nGram new n-gram
    */
   public nGramUpdate(nGram: number): void {
     this.status = false;
@@ -72,7 +72,7 @@ export class GeneratorService {
   }
 
   /**
-   * Get N-GRAM
+   * Get n-gram
    */
   public get getNGram(): number {
     return this.nGram;

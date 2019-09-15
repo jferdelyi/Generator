@@ -22,7 +22,7 @@ else:
 
 # Load database
 print("Set database: " + database)
-print("Set N-GRAM: " + str(ngram))
+print("Set n-gram: " + str(ngram))
 t0 = time.time()
 print("Load learning...")
 SingletonNameGenerator.init(database, ngram)
@@ -47,18 +47,18 @@ def api_v1_generate():
 
 
 @app.route("/v1/ngram", methods=['GET', 'PUT'])
-# Get or update N-GRAM
+# Get or update n-gram
 def api_v1_ngram():
     # If request is GET
     if request.method == 'GET':
-        # Return selected N-GRAM
+        # Return selected n-gram
         resp = jsonify(SingletonNameGenerator.getSelectedNgram())
         # OK
         resp.status_code = 200
 
     # If request is PUT
     elif request.method == 'PUT':
-        # Get new N-GRAM
+        # Get new n-gram
         ngram = int(json.dumps(request.json))
         SingletonNameGenerator.reload(ngram)
         # OK but no content

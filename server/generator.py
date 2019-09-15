@@ -10,7 +10,7 @@ random.seed()
 hasParam = len(sys.argv) > 0
 
 if not hasParam or not "-load" in sys.argv or not "-ngram" in sys.argv:
-    print("Error, need number of N-GRAM and database name")
+    print("Error, need number of n-gram and database name")
     print("-load <database>")
     print("-ngram <ngram>")
     exit(1)
@@ -28,7 +28,7 @@ if "-ngram" in sys.argv:
     i = sys.argv.index("-ngram")
     if len(sys.argv) > i + 1:
         ngram = int(sys.argv[i + 1])
-        print("Set N-GRAM: " + str(ngram))
+        print("Set n-gram: " + str(ngram))
     else:
         print("Error, need number of ngram")
         exit(1)

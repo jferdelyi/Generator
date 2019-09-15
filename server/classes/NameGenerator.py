@@ -32,7 +32,7 @@ class NameGenerator:
         # Generate database path
         fn = self.generatedBaseName + ".json"
 
-        # Open first file (with N-GRAM)
+        # Open first file (with n-gram)
         if os.path.isfile(fn):
             with open(fn, "r") as file:
                 jsonMap = json.load(file)
@@ -42,15 +42,15 @@ class NameGenerator:
         else:
             raise Exception("Loading: Database file not found")
 
-        # Select N-GRAM is the min between
-        # N-GRAM from the database and the selected one
+        # Select n-gram is the min between
+        # n-gram from the database and the selected one
         self.freqHolders = []
         selectedNgram = min(self.ngram, self.selectedNgram)
 
         # Load freq files
         self.loadFreqFiles(2, selectedNgram)
 
-        # If the selected N-GRAM is higher than N-GRAM from the database
+        # If the selected n-gram is higher than n-gram from the database
         # Then create all missing data
         self.createDatabase(True)
 
@@ -66,7 +66,7 @@ class NameGenerator:
             # Load frequence file
             self.freqHolders[-1].loadFromFile(name)
 
-    # Get selected N-GRAM
+    # Get selected n-gram
     def getSelectedNgram(self):
         return self.selectedNgram
 
@@ -95,11 +95,11 @@ class NameGenerator:
                 self.loadFreqFiles(loadedFreqSize, self.selectedNgram)
                 return
             else:
-                # Nothing to do because the selected N-GRAM is lower
+                # Nothing to do because the selected n-gram is lower
                 # than the max value from the database
                 return
 
-        # Generates all the previous N-GRAM for starting letters
+        # Generates all the previous n-gram for starting letters
         if end > 2:
             for i in range(beg, end):
                 self.freqHolders.append(LetterFreq(i))
@@ -123,7 +123,7 @@ class NameGenerator:
         # Save data if is needed
         self.saveToFile()
 
-        # The value of N-GRAM in the file is the selected value
+        # The value of n-gram in the file is the selected value
         self.ngram = self.selectedNgram
 
     # Save NameGenerator data to json file
