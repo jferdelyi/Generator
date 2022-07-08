@@ -8,6 +8,7 @@ def signalHandler(sig, frame):
     os.system("pkill flask")
     os.system("pkill node")
     os.system("pkill 'ng serve'")
+    os.system("pkill 'Python'")
     print("App closed")
     sys.exit(0)
 
@@ -15,10 +16,10 @@ def signalHandler(sig, frame):
 signal.signal(signal.SIGINT, signalHandler)
 
 # Start server
-os.system("./server.py &")
+os.system("python3 server.py &")
 
 # Start client
-os.system("./client.py &")
+os.system("python3 client.py &")
 
 # Wait for ctrl+c
 signal.pause()

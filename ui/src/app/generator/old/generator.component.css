@@ -8,7 +8,7 @@
   position: relative;
   height: 339px;
   width: 1126px;
-  top: -375px;
+  top: -275px;
   left: -250px;
   z-index: -5;
 }
@@ -45,19 +45,14 @@
 }
 
 .input {
-  height: 25px;
+  height: 30px;
   width: 100px;
-  margin-left: 10px;
-  border-radius: 5px;
-  border: 1px solid #2e8af2;
-  padding-left: 10px;
 }
 
 .button {
   border: 0px;
   color: white;
   margin: auto;
-  margin-left: 10px;
   border-radius: 5px;
   height: 30px;
   width: 100px;
@@ -66,11 +61,6 @@
 
 .button:hover {
   background-color: #63a6f2;
-}
-
-.button-row {
-  display: table-cell;
-  width: 720px;
 }
 
 .button:disabled,
@@ -89,7 +79,6 @@
 
 .label-ngram {
   position: relative;
-  left: 0px;
+  left: 50px;
   top: 5px;
-  margin-right: 10px;
 }
