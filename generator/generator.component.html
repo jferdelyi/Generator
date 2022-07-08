@@ -1,0 +1,35 @@
+<head>
+  <meta content="text/html;charset=UTF-8" charset="utf-8">
+  <title>Markov generator</title>
+</head>
+
+<body>
+  <div id="back">
+    <div id="background"></div>
+
+    <div id="display">
+      <span id="display_beg"></span>
+      <div class="{{word[0]}}" *ngFor="let word of getOutput">{{word[1]}}</div>
+    </div>
+
+    <div class="control">
+      <div class="clr-row">
+        <div class="clr-col-6">
+          <button id="generate" class="button" (click)="generate()" [disabled] = "!getStatus()">Generate</button>
+        </div>
+
+        <div class="clr-col-2">
+          <label class="label-ngram"><b>N-gram</b></label>
+        </div>
+
+        <div class="clr-col-2">
+          <input #ngram class="input" type="number" min="3" max="40" step="1" value="{{getNGram()}}" />
+        </div>
+
+        <div class="clr-col-2">
+          <button id="ngrambutton" class="button" (click)="nGramUpdate(ngram.value)" [disabled] = "!getStatus()">Set</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
