@@ -7,7 +7,7 @@ import { GeneratorComponent } from './generator/generator.component';
 @NgModule({
   declarations: [
     AppComponent,
-    GeneratorComponent
+    GeneratorComponent,
   ],
   imports: [
     BrowserModule
