@@ -12,10 +12,10 @@ const httpOptions = {
 })
 export class GeneratorService {
   // Generator URL
-  private generatorUrl = 'http://127.0.0.1:5000/v1/generate';
+  private generatorUrl = 'http://127.0.0.1:4242/v1/generate';
 
   // n-gram URL
-  private nGramUrl = 'http://127.0.0.1:5000/v1/ngram';
+  private nGramUrl = 'http://127.0.0.1:4242/v1/ngram';
 
   // n-gram
   private nGram: number;
