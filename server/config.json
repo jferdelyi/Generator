@@ -1,7 +1,7 @@
 {
 	"options": {
 		"base": {
-			"name": "fromonge",
+			"name": "fromone",
 			"ngram": 5
 		}
 	}
