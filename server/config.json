@@ -1,8 +1,8 @@
 {
 	"options": {
 		"base": {
-			"name": "ville",
-			"ngram": 6
+			"name": "fromonge",
+			"ngram": 5
 		}
 	}
 }
